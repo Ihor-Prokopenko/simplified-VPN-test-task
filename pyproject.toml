@@ -1,0 +1,12 @@
+[tool.poetry]
+name = "test-task-SheepFish"
+version = "0.1.0"
+description = "The simplified VPN service"
+authors = ["Ihor Prokopenko <i.prokopenko.dev@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.7"
+django-environ = "^0.11.2"
+requests = "^2.31.0"
+beautifulsoup4 = "^4.12.2"
