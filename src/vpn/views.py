@@ -1,8 +1,4 @@
-import json
-from urllib.parse import urljoin, urlparse
-
 import requests
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
@@ -37,5 +33,8 @@ def proxy(request, site_name):
         return HttpResponse(f'Error: {e}')
 
     content = replace_links(response.content, site_name, site.base_url)
+    site.transitions_count += 1
+    site.data_volume += len(content)
+    site.save()
 
     return HttpResponse(content)
