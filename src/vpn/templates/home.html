@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2 class="text-center text-light">Your sites:</h2>
-<hr>
+<!--<hr>-->
 <div class="d-flex flex-column align-items-center text-light">
+    {% if not request.user.sites.exists %}
+    <h1 class="text-center text-light">You don't have any sites yet.</h1>
+    <h3 class="text-center text-light"><a href="{% url 'create_site' %}" class="btn btn-outline-light">Create your first site</a></h3>
+    {% else %}
+<h2 class="text-center text-light">Your sites:</h2>
     {% for site in request.user.sites.all %}
 
     {% include 'site_detail.html' with site=site %}
     <hr>
     {% endfor %}
+    {% endif %}
 </div>
 
 {% endblock %}

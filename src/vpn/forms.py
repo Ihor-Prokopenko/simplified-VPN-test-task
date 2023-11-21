@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
+from django.core.exceptions import ValidationError
 
 # from django.contrib.auth.models import User
 from .models import User
@@ -8,12 +9,16 @@ from vpn.models import Site
 
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(label='',
+    email = forms.EmailField(label='Email',
                              widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'email'}))
 
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2', 'bio')
+
+        labels = {
+            'bio': 'Bio (optional)',
+        }
 
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
@@ -56,11 +61,14 @@ class CreateSiteForm(forms.ModelForm):
         self.fields['base_url'].widget.attrs['class'] = 'form-control text-center'
         self.fields['base_url'].widget.attrs['style'] = 'max-width: 300px; margin: 0 auto;'
 
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if not name.isalnum():
+            raise ValidationError("Name can only contain letters and numbers.")
+        return name
+
 
 class EditProfileForm(forms.ModelForm):
-    # email = forms.EmailField(label='',
-    #                          widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'email', 'labels': 'Email'}))
-
     class Meta:
         model = User
         fields = ['username', 'email', 'bio']
@@ -79,6 +87,3 @@ class EditProfileForm(forms.ModelForm):
         self.fields['bio'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['email'].widget.attrs['class'] = 'form-control'
-
-
-

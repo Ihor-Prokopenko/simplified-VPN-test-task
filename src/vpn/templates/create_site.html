@@ -6,7 +6,7 @@
     <form method="POST" enctype="multipart/form-data" action="">
             {% csrf_token %}
         {% if form.errors %}
-            <div class="alert alert-secondary alert-dismissible fade show " role="alert">
+            <div class="alert alert-secondary alert-dismissible fade show my-auto" role="alert">
                 {% for field in form %}
                     {% if field.errors %}
                         {{ field.errors }}

@@ -17,7 +17,12 @@
         {% endif %}
 
         <div class="text-light">
-            {{ form }}
+<!--            {{ form }}-->
+            {% for field in form %}
+            <br>
+            <p>{{ field.label }}</p>
+                {{ field }}
+            {% endfor %}
         </div>
 
       <div class="text-center">

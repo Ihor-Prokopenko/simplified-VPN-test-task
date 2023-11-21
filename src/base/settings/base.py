@@ -92,6 +92,6 @@ AUTH_USER_MODEL = "vpn.User"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-BASE_HOST_URL = 'http://127.0.0.1:8000/vpn/'
+BASE_HOST_URL = 'http://localhost:8000/vpn/'
 
 LOGIN_URL = '/login/'

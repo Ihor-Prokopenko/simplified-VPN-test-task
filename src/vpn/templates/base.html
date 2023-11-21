@@ -13,15 +13,16 @@
     <hr class="hr">
     </div>
     <div class="container">
-        {% if messages %}
-        <br/>
-            {% for message in messages %}
-                <div class="alert alert-secondary alert-dismissible fade show text-center" role="alert">
-                    <strong>{{ message }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
+        <div class=" container d-flex justify-content-center">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-secondary alert-dismissible fade show text-center" role="alert" style="">
+                        <strong>{{ message }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
 
         {% block content %}
         {% endblock %}

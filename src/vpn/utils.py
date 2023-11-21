@@ -10,7 +10,6 @@ def make_absolute_url(relative_url, site_name, base_site_url, base_site_domain, 
     if relative_url.startswith('/static'):
         return urljoin(base_site_url, relative_url)
     elif relative_url.startswith('//') and base_site_domain not in parsed_url.netloc:
-        print("relative_url", relative_url)
         return relative_url
     elif relative_url == '/' or relative_url.startswith('/'):
         query = f"/?{parsed_url.query}" if parsed_url.query else ""
