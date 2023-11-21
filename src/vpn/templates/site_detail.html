@@ -1,0 +1,16 @@
+{% block content %}
+<div class="card text-bg-dark text-light" style="min-width: 25rem;">
+  <div class="card-header d-flex">
+    <h4 class="card-title text-center">{{ site.name }}</h4>
+    <a href="{% url 'delete_site' pk=site.id %}" class="btn-close ms-auto"></a>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Transitions: {{ site.transitions_count }}</h5>
+    <h5 class="card-title">Sent data amount: {{ site.formatted_data_volume }}</h5>
+    <p class="card-text">Original url: <a href="{{ site.base_url }}" target="_blank" class="text-light">{{ site.base_url }}</a></p>
+  </div>
+  <div class="card-footer text-center">
+    <a href="{{ site.go_to_site }}" class="btn btn-outline-light" target="_blank">Go to "{{ site.name }}"</a>
+  </div>
+</div>
+{% endblock %}

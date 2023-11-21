@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-center text-light">Your sites:</h2>
+<hr>
+<div class="d-flex flex-column align-items-center text-light">
+    {% for site in request.user.sites.all %}
+
+    {% include 'site_detail.html' with site=site %}
+    <hr>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card text-bg-dark text-light">
+    <div class="card-header d-flex">
+                <h2 class="me-auto">{{ request.user.username }}</h2>
+                <a href="{% url 'edit_profile' %}" class="btn btn-outline-light btn ms-auto my-auto">Edit Profile</a>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Sites: {{ request.user.sites.count }}</h5>
+        <h5 class="card-title">Total transitions: {{ request.user.total_transitions }}</h5>
+        <h5 class="card-title">Total sent data amount: {{ request.user.formatted_data_volume }}</h5>
+    </div>
+    <div class="card-footer">
+        <h5>Bio:</h5>
+        <p class="card-text">{{ request.user.bio }}</p>
+    </div>
+</div>
+<hr>
+
+<div class="d-flex flex-column align-items-center text-light">
+    {% for site in request.user.sites.all %}
+
+    {% include 'site_detail.html' with site=site %}
+    <hr>
+    {% endfor %}
+</div>
+
+{% endblock %}
