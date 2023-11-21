@@ -24,10 +24,12 @@ def proxy(request, site_name, path=''):
     try:
         site = request.user.sites.get(name=site_name)
     except Site.DoesNotExist:
-        return HttpResponse('Site not found')
+        messages.error(request, 'Site not found')
+        return redirect('profile')
 
     if not site or not site.base_url:
-        return HttpResponse('Site not found')
+        messages.error(request, 'Site not found')
+        return redirect('profile')
 
     base_url = site.base_url
 
@@ -39,7 +41,8 @@ def proxy(request, site_name, path=''):
         response = requests.get(request_url, headers={'User-Agent': 'Mozilla/5.0'})
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
-        return HttpResponse(f'Error: {e}')
+        messages.error(request, f'Error: {e}')
+        return redirect('profile')
 
     content = replace_links(response.content, site_name, site.base_url, base_site_domain, path)
     site.transitions_count += 1
