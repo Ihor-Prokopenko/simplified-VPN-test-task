@@ -1,14 +1,13 @@
 from urllib.parse import urlparse, urljoin
-
 import requests
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, View, UpdateView
@@ -20,14 +19,37 @@ from vpn.utils import replace_links
 
 
 @login_required
-def proxy(request, site_name, path=''):
+def proxy(request, site_name: str, path: str=''):
+    """
+    A function that acts as a proxy to retrieve content from a specified site.
+
+    Parameters:
+        - request: The Django request object.
+        - site_name: The name of the site to proxy.
+        - path: The path of the content to retrieve (optional).
+
+    Returns:
+        - HttpResponse: The response containing the retrieved content.
+
+    Raises:
+        - Site.DoesNotExist: If the specified site does not exist.
+
+    If the site is found and has a base URL, the function constructs the request URL by
+    combining the base URL and the provided path. It then sends a GET request to the
+    constructed URL, with a custom User-Agent header.
+
+    If the request is successful, the retrieved content is processed to replace any links
+    with appropriate values based on the site and path. The function also updates the
+    transitions count and data volume for the site.
+
+    If any error occurs during the request or processing of the content, an error message
+    is displayed and the user is redirected to the profile page.
+
+    Finally, the function returns an HttpResponse containing the processed content.
+    """
     try:
         site = request.user.sites.get(name=site_name)
     except Site.DoesNotExist:
-        messages.error(request, 'Site not found')
-        return redirect('profile')
-
-    if not site or not site.base_url:
         messages.error(request, 'Site not found')
         return redirect('profile')
 

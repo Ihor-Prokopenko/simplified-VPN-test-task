@@ -1,10 +1,12 @@
-from django.conf import settings
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.shortcuts import resolve_url, redirect
 
 
 class NotAuthenticatedMixin(UserPassesTestMixin):
+    """
+    A mixin that redirects to the login page if the user is not authenticated.
+    """
     def test_func(self):
         return not self.request.user.is_authenticated
 

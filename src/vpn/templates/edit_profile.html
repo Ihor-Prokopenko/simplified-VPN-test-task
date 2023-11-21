@@ -3,7 +3,7 @@
 <div class="col-md-6 offset-md-3">
     <h1 class="text-center text-light">Edit Profile</h1>
 <br/>
-    <form method="POST" enctype="multipart/form-data" action="">
+    <form method="POST" class="text-center" enctype="multipart/form-data" action="">
             {% csrf_token %}
         {% if form.errors %}
             <div class="alert alert-secondary alert-dismissible fade show " role="alert">

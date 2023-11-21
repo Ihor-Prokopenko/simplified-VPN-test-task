@@ -1,5 +1,4 @@
 from django.db import models
-# from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
@@ -20,6 +19,14 @@ class User(AbstractUser):
 
     @property
     def formatted_data_volume(self):
+        """
+        Calculates the formatted data volume based on the given data volume in bytes.
+        Returns:
+            - If the data volume is greater than or equal to 1 GB, returns the formatted data volume in GB.
+            - If the data volume is greater than or equal to 1 MB, returns the formatted data volume in MB.
+            - If the data volume is greater than or equal to 1 KB, returns the formatted data volume in KB.
+            - Otherwise, returns the data volume in bytes.
+        """
         kb = int(self.total_data_volume) / 1024
         mb = kb / 1024
         gb = mb / 1024
@@ -56,6 +63,14 @@ class Site(models.Model):
 
     @property
     def formatted_data_volume(self):
+        """
+        Calculates the formatted data volume based on the given data volume in bytes.
+        Returns:
+            - If the data volume is greater than or equal to 1 GB, returns the formatted data volume in GB.
+            - If the data volume is greater than or equal to 1 MB, returns the formatted data volume in MB.
+            - If the data volume is greater than or equal to 1 KB, returns the formatted data volume in KB.
+            - Otherwise, returns the data volume in bytes.
+        """
         kb = int(self.data_volume) / 1024
         mb = kb / 1024
         gb = mb / 1024
