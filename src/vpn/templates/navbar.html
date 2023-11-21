@@ -1,7 +1,7 @@
 {% block content %}
 <nav class="navbar navbar-expand-lg bg-dark border-body rounded-bottom" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home' %}">VPN</a>
+    <a class="navbar-brand mx-2" href="{% url 'home' %}">VPN</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,30 +9,31 @@
       <ul class="navbar-nav">
           {%  if request.user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+<!--          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>-->
+          <a class="btn btn-outline-light btn-sm mt-1" style="border: none;" aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="{% url 'profile' %}">Profile</a>
+          <a class="btn btn-outline-light btn-sm mt-1" style="border: none;" href="{% url 'profile' %}">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="{% url 'create_site' %}">Create Site</a>
+          <a class="btn btn-outline-light btn-sm mt-1" style="border: none;" href="{% url 'create_site' %}">Create Site</a>
         </li>
 
 
 
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          <a class="btn btn-outline-secondary btn-sm mt-1" style="border: none;" href="{% url 'logout' %}">Logout</a>
         </li>
 
           {%  else %}
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}">Login</a>
+          <a class="btn btn-outline-light btn-sm mt-1" style="border: none;" href="{% url 'login' %}">Login</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'register' %}">Register</a>
+          <a class="btn btn-outline-light btn-sm mt-1" style="border: none;" href="{% url 'register' %}">Register</a>
         </li>
 
           {% endif %}
